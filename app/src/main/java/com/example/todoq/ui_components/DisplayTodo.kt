@@ -14,11 +14,6 @@ import com.google.firebase.firestore.firestore
 
 @Composable
 fun DisplayTodo(todoList: List<TodoData>, context: Context, vm: MainVM = viewModel()) {
-    // when this variable is changed, this composable is recomposed
-    var reCompose = remember {
-        mutableStateOf(false)
-    }
-
     Column {
         todoList.forEach { todo ->
             TodoItem(
@@ -32,7 +27,14 @@ fun DisplayTodo(todoList: List<TodoData>, context: Context, vm: MainVM = viewMod
                     )
 
                     // Reload the todoList
-                    vm.getTodo(db = Firebase.firestore)
+                    if(vm.searchTag.value != "") {
+                        vm.getTodoByTag(
+                            db = Firebase.firestore,
+                            tagName = vm.searchTag.value,
+                        )
+                    } else {
+                        vm.getTodo(db = Firebase.firestore)
+                    }
                 }
             )
         }

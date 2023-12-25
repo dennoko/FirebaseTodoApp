@@ -17,7 +17,7 @@ class AppRepository {
 
         db.collection("dennoko").document(title) // collection name
             .set(todo)
-            .addOnSuccessListener { documentReference ->
+            .addOnSuccessListener {
                 Log.d("methodTest","[AppRepository] DocumentSnapshot added with ID: ${title}")
             }
             .addOnFailureListener {e ->
@@ -47,8 +47,31 @@ class AppRepository {
         return todoList
     }
 
+    // getTodo function (search by tagName)
+    suspend fun getTodoByTag(db: FirebaseFirestore, tagName: String): List<TodoData> {
+        val todoList = mutableListOf<TodoData>()
+
+        try {
+            val result = db.collection("dennoko").whereEqualTo("tagName", tagName).get().await()
+
+            for (document in result) {
+                Log.d("methodTest", "[AppRepository] ${document.id} => ${document.data}")
+                // add TodoData to list
+                todoList.add(TodoData(
+                    title = document.data["title"] as String,
+                    tagName = document.data["tagName"] as String,
+                    description = document.data["description"] as String,
+                ))
+            }
+        } catch (e: Exception) {
+            Log.d("methodTest", "[AppRepository] Error getting documents: ${e.message}  ${e.cause}")
+        }
+
+        return todoList
+    }
+
     // deleteTodo function
-    suspend fun deleteTodo(db: FirebaseFirestore, collection: String, document: String, context: Context) {
+    fun deleteTodo(db: FirebaseFirestore, collection: String, document: String, context: Context) {
         val todoRef = db.collection(collection).document(document)
         todoRef.delete()
             .addOnSuccessListener {

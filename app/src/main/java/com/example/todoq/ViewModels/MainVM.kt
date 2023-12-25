@@ -1,6 +1,7 @@
 package com.example.todoq.ViewModels
 
 import android.content.Context
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todoq.firestore.AppRepository
@@ -22,6 +23,19 @@ class MainVM: ViewModel() {
         viewModelScope.launch {
             val newList = repository.getTodo(
                 db = db,
+            )
+            _todoList.value = newList
+        }
+    }
+
+    // getTodoByTag function
+    var searchTag = mutableStateOf("")
+
+    fun getTodoByTag(db: FirebaseFirestore, tagName: String) {
+        viewModelScope.launch {
+            val newList = repository.getTodoByTag(
+                db = db,
+                tagName = tagName,
             )
             _todoList.value = newList
         }
