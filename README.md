@@ -18,7 +18,7 @@
 
 
 <p>
-  <img src="https://github.com/dennoko/FirebaseTodoApp/assets/145789995/858c93aa-924a-4097-91a0-7f42c0ac7f02"> 
+  <img src="https://github.com/dennoko/FirebaseTodoApp/assets/145789995/858c93aa-924a-4097-91a0-7f42c0ac7f02" width="100"> 
   <img src="https://github.com/dennoko/FirebaseTodoApp/assets/145789995/dd962cd8-c54c-4105-9f2f-ae5f129d3598"> 
   <img src="https://github.com/dennoko/FirebaseTodoApp/assets/145789995/50d84878-c84d-4404-a29a-b1ed0e3b55e1"> 
   <img src="https://github.com/dennoko/FirebaseTodoApp/assets/145789995/fa6d5c89-2627-4148-b0aa-78d1972657fe">
